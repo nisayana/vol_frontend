@@ -17,7 +17,7 @@ body {
   width: auto;
 }
 
-#organization-collection {
+#category-collection {
   margin: 2rem;
 }
 
@@ -32,7 +32,7 @@ body {
   box-shadow: 3px 4px #e04b52
 }
 
-.organization-image {
+.category-image {
   justify-self: center;
   height: 12rem;
   width: auto;
