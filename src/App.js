@@ -128,24 +128,27 @@ class App extends Component {
 }
 
   removeList = id => {
-      const updatedList = this.state.myLists.filter(myList => {
-        if (myList.id !== id) {
-          return true
-        } else {
-          return false
-        }
+      // console.log("Remove list")
+      fetch(`http://localhost:3000/dash_list_joiners/${id}`, {
+        method: "DELETE"
       })
-      this.setState({
-        myLists: updatedList
+      .then(res => res.json())
+      .then(removedList => {
+        let updatedList = this.state.myLists.filter(list => list.id !== removedList.list.id)
+        this.setState({
+          ...this.state,
+          myLists: updatedList
+        })
       })
     }
+     
 
   render() {
     // console.log(this.state.organizations)
     // let organizationId = this.state.organizations.map(organization => organization.id)
     // console.log(organizationId)
-    console.log("lists", this.state.myLists)
-    console.log("user", this.state.user)
+    // console.log("lists", this.state.myLists)
+    // console.log("user", this.state.user)
     return (
       <div className="App">
         <Header/>

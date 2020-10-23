@@ -6,15 +6,14 @@ import { withRouter} from 'react-router-dom'
 class ListCard extends Component {
 
     handleAddToMyList = () => {
-        console.log("click me", this.props.list)
+        // console.log("click me", this.props.list)
         this.props.addToMyLists(this.props.list)
     }
 
     render() {
-        // console.log(this.props)
+        console.log(this.props)
         let {name, description, location, addToMyLists } = this.props.list
         
-
         return (
             <div >
                 <li>
