@@ -23,18 +23,7 @@ class OrganizationCard extends Component {
         
         console.log("hi from card")
         return (
-            <div className="card">
-                {/* <h2>{this.props.organizationCard.name}</h2>
-                <img src={image} alt={this.props.organizationCard.name} onClick={this.handleClick} className="organization-image"/>
-
-                { this.state.showDescription ?
-                    <div>
-                        <p> Description: {this.props.organizationCard.description}</p>
-                    </div>
-                    : 
-                    null
-                } */}
-                
+            <div className="card"> 
                 <Link to={`/organizations/${id}/lists`}>            
                     <h2>{this.props.organizationCard.name}</h2>
                 <img src={image} alt={this.props.organizationCard.name} onClick={this.handleClick} className="organization-image"/>

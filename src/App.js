@@ -4,13 +4,13 @@ import NotFound from './NotFound'
 import HomeContainer from './OrgComponents/HomeContainer'
 import Header from './Header'
 import ListContainer from './OrgComponents/ListContainer'
-// import Profile from './HomeComponents/Profile'
+import ProfileContainer from './HomeComponents/ProfileContainer'
 import MyListContainer from './HomeComponents/MyListContainer'
 
-// import NavBar from './HomeComponents/NavBar'
-// import Signup from './HomeComponents/Signup'
-// import Login from './HomeComponents/Login'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import NavBar from './HomeComponents/NavBar'
+// import RegisterForm from './HomeComponents/RegisterForm'
+import Form from './HomeComponents/Form'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
 class App extends Component {
 
@@ -42,54 +42,106 @@ class App extends Component {
       })
     })
 
-  //   if(localStorage.token){
-  //     fetch(`https://localhost:3000/persist`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Authorization": localStorage.token
-  //       }
-  //     })
-  //     .then(r => r.json())
-  //     .then((data) => {
-  //       if(data.token){
-  //         this.setState({
-  //             user: data.user
-  //           })
-  //         }
-  //       })
-  //     }
-  // }
+    if(localStorage.token){
+      fetch(`https://localhost:3000/persist`, {
+        method: "GET",
+        headers: {
+          "Authorization": localStorage.token
+        }
+      })
+      .then(res => res.json())
+      .then(this.helpHandleResponse)
+      }
+    }
 
-  // createNewUser = (newUser) => {
-  //   this.setState({
-  //     user: newUser.user,
-  //     token: newUser.token
-  //   })
-  // }
+    handleLogOut = () => {
+      this.setState({
+        id: 0,
+        name: "",
+        token: ""
+      })
+      localStorage.clear()
+    }
 
-  // loginUser = (user) => {
-  //   fetch('https://localhost:3000/login', {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json"
-  //     },
-  //     body: JSON.stringify(user)
-  //   })
-  //   .then(r => r.json())
-  //   .then(userData => {
-  //     if(userData.error){
-  //       this.setState({
-  //         error: userData.error
-  //       })
-  //     }else{
-  //       localStorage.setItem("token", userData.token)
-  //       this.setState({
-  //         user: userData.user,
-  //         search: ""
-  //       })
-  //     }
-  //   })
+    handleLoginSubmit = (userInfo) => {
+      console.log("Login form has been submitted")
 
+      fetch('http://localhost:3000/login', {
+        method: "POST", 
+        headers: {
+          "Content-Type": "Application/json"
+        },
+        body: JSON.stringify({
+          name: userInfo.name,
+          password: userInfo.password
+        })
+      })
+      .then(res => res.json())
+      .then(this.helpHandleResponse)
+    }
+
+    handleRegisterSubmit = (userInfo) => {
+      console.log("Register form has been submitted")
+
+    fetch('http://localhost:3000/users', {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json"
+      },
+      body: JSON.stringify({
+        name: userInfo.name,
+        password: userInfo.password,
+        // age: userInfo.age
+      })
+    })
+    .then(res => res.json())
+    .then(this.helpHandleResponse)
+    }
+
+    helpHandleResponse = (resp) => {
+      if(resp.error){
+        console.error(resp.error)
+      } else {
+        localStorage.token = resp.token
+        this.setState({
+          id: resp.user.id,
+          name: resp.user.name,
+          myLists: resp.user.myLists,
+          token: resp.token
+        })
+        this.props.history.push("/profile")
+      }
+    }
+
+    renderForm = (routerProps) => {
+      if(this.state.token){
+        return <button onClick={this.handleLogOut}>Log Out</button>
+      }
+      
+      if(routerProps.location.pathname === "/login"){
+        return <Form
+          formName="Login Form"
+          handleSubmit={this.handleLoginSubmit}
+        />
+      } else if (routerProps.location.pathname === "/register") {
+        return <Form
+          formName="Register Form"
+          handleSubmit={this.handleRegisterSubmit}
+        />
+      }
+    }
+
+    renderProfile = (routerProps) => {
+      if(this.state.token){
+        return <ProfileContainer 
+          name={this.state.name} 
+          myLists={this.state.myLists} 
+          id={this.state.id}
+          token={this.state.token}
+        />
+      } else {
+        return <Redirect to="/login" />
+      }
   }
 
   renderSpecificOrganization = (routerProps) => {
@@ -106,7 +158,7 @@ class App extends Component {
   }
 
   addToMyLists = myList => {
-    fetch("http://localhost:3000/dash_list_joiners", {
+    fetch('http://localhost:3000/dash_list_joiners', {
       method: "POST",
       headers: {
       "Content-Type": "application/json"
@@ -152,25 +204,23 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
+        <NavBar/>
         <Switch>
           <Route exact path='/' render={ () => <HomeContainer
         organizations ={this.state.organizations}
         />} />
+          <Route path="/login" render={ this.renderForm } /> 
+          <Route path="/register" render={ this.renderForm } /> 
+          <Route path="/profile" render={ this.renderProfile } />
           <Route exact path='/my-lists'>
-          <MyListContainer myLists={this.state.myLists} removeList={this.removeList} />
+            <MyListContainer myLists={this.state.myLists} removeList={this.removeList} />
            </Route>
-          {/* <Route exact path="/profile"> */}
-             {/* <Profile myLists={this.state.myLists} removeList={this.removeList} />            */}
-          {/* </Route> */}
           <Route path='/organizations/:id/lists' exact render={ this.renderSpecificOrganization } />
-          {/* <Route path='/organizations/:id' exact render={ () => <ListContainer addToMyLists={ this.addToMyLists } />} /> */}
-          {/* <Route path='/:id' exact render={ () => <ListContainer
-          routerProps={this.states.organizations}
-          /> }/> */}
         </Switch>
       </div>
     )
   }
 }
 
-export default withRouter(App);
+
+export default withRouter(App)

@@ -1,30 +1,23 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom'
+import React from 'react';
+import {NavLink} from 'react-router-dom'
 
+const NavBar = () => {
+  return(
+    <ul className="nav">
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/login">Login</NavLink>
+      </li>
+      <li>
+        <NavLink to="/register">Register</NavLink>
+      </li>
+      <li>
+        <NavLink to="/profile">Profile</NavLink>
+      </li>
+    </ul>
+  )
+};
 
-// const NavBar = ({ currentUser, handleLogout }) => {
-// return (
-// <header>
-//     <div>
-//     <Link to="/home">Home</Link>
-//     </div>
-//     <div>
-//     {currentUser ? (
-//         <>
-//         <Link to="/profile">Profile</Link>
-//         <button className="logout" onClick={handleLogout}>Logout</button>
-//         <Link to="/organizations" >Organizations list</Link>
-//         </>
-//     ) : (
-//         <>
-//             <Link to="/signup">Signup</Link>
-//             <Link to="/login">Login</Link>
-//         </>
-//         )}
-//     </div>
-// </header>
-// )
-// }
-
-// export default NavBar
-
+export default NavBar;

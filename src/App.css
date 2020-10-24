@@ -6,7 +6,7 @@ body {
 #header {
   display: flex;
   justify-content: center;
-  background: #cad4d1;
+  background: #e3e6f7;
   opacity: .8;
   height: 7rem;
   padding: 1rem;
@@ -17,7 +17,7 @@ body {
   width: auto;
 }
 
-#category-collection {
+#organization-collection {
   margin: 2rem;
 }
 
@@ -29,18 +29,18 @@ body {
   height: 25rem;
   display: inline-grid;
   margin: 1rem 2rem;
-  box-shadow: 3px 4px #e04b52
+  box-shadow: 3px 4px #e9dfe0
 }
 
-.category-image {
+.organization-image {
   justify-self: center;
-  height: 12rem;
-  width: auto;
+  height: 14rem;
+  width: 14rem;
 }
 
 button {
   position: relative;
-  background-color: #e04b52;
+  background-color: #4b87e0;
   border: none;
   border-radius: 5px;
   height: 3rem;
