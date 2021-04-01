@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 class OrganizationContainer extends Component {
     render() {
-        // console.log(this.props.organizations) 
+        console.log(this.props.organizations) 
         let organizationCard = this.props.organizations.map((organizationObj) => {
             return <OrganizationCard organizationCard={organizationObj}/>
         })

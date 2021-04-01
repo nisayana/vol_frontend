@@ -12,6 +12,8 @@ import NavBar from './HomeComponents/NavBar'
 import Form from './HomeComponents/Form'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
+import MapContainer from './OrgComponents/MapContainer'
+
 class App extends Component {
 
   state = {
@@ -206,6 +208,7 @@ class App extends Component {
         <Header/>
         <NavBar/>
         <Switch>
+          <Route path="/map" component={MapContainer}/>
           <Route exact path='/' render={ () => <HomeContainer
         organizations ={this.state.organizations}
         />} />

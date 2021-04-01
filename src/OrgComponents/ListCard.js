@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter} from 'react-router-dom'
 
-// import OrganizationContainer from './OrganizationContainer'
+import OrganizationContainer from './OrganizationContainer'
 
 class ListCard extends Component {
 
