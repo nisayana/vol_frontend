@@ -12,7 +12,9 @@ import NavBar from './HomeComponents/NavBar'
 import Form from './HomeComponents/Form'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
-import MapContainer from './OrgComponents/MapContainer'
+// import MapContainer from './OrgComponents/MapContainer'
+import Geocoder from './OrgComponents/Geocoder'
+
 
 class App extends Component {
 
@@ -208,7 +210,7 @@ class App extends Component {
         <Header/>
         <NavBar/>
         <Switch>
-          <Route path="/map" component={MapContainer}/>
+          <Route path="/map" component={Geocoder}/>
           <Route exact path='/' render={ () => <HomeContainer
         organizations ={this.state.organizations}
         />} />
