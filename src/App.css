@@ -4,20 +4,25 @@ body {
 }
 
 #header {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
-  background: #e3e6f7;
+  background: #5b9159;
   opacity: .8;
-  height: 7rem;
+  height: 3rem;
   padding: 1rem;
 }
 
-#toy-header img {
-  height: 6rem;
-  width: auto;
+ul.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #528850;
 }
 
-#organization-collection {
+#org-collection {
   margin: 2rem;
 }
 

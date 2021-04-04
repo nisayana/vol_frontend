@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import {connect, useSelector} from 'react-redux'
 
-class Form extends Component {
+class LoginForm extends React.Component {
 
   state = {
-    name: "",
-    password: ""
+    username: "",
+    password: "",
+    logging_in_as: "user"
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.targetvalue
+    })
   }
 
   handleSubmit = (e) => {
@@ -13,16 +21,8 @@ class Form extends Component {
     this.props.handleSubmit(this.state)
   }
 
-  handleChange = (e) => {
-    let {name, value} = e.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  render() {
-    let {formName} = this.props
-    let {name, password} = this.state
+    // let {formName} = this.props
+    // let {name, password} = this.state
     // console.log("form", this.props)
     return (
       <form onSubmit={this.handleSubmit}>
@@ -42,8 +42,6 @@ class Form extends Component {
         <input type="submit" value="Submit"/>
       </form>
     );
-  }
-
 }
 
-export default Form;
+export default LoginForm;

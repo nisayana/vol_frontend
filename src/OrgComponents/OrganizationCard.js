@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import {connect, useSelector} from 'react-redux'
 
-class OrganizationCard extends Component {
+const OrganizationCard = (props) => {
+    console.log(props.organization)
 
     // state={
     //     showDescription: false
@@ -13,24 +15,20 @@ class OrganizationCard extends Component {
     //     })
     // }
 
-    handleClick = () => {
+    let handleClick = () => {
         //this.props.categoryCard.organizations
     }
-
-    render() {
         // console.log(this.props.organizationCard.description)
-        let {name, image, description, id } = this.props.organizationCard
+        let {name, image, description, id } = props.organization
         
-        console.log("hi from card")
         return (
             <div className="card"> 
                 <Link to={`/organizations/${id}/lists`}>            
-                    <h2>{this.props.organizationCard.name}</h2>
-                <img src={image} alt={this.props.organizationCard.name} onClick={this.handleClick} className="organization-image"/>
+                    <h2>{name}</h2>
+                    <img src={image} alt={name} onClick={handleClick} className="organization-image"/>
                 </Link> 
             </div>
         )
-    }
 }
 
 export default OrganizationCard;
