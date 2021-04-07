@@ -1,25 +1,33 @@
 import React, { Component } from 'react'
 import ListCard from './ListCard'
-import {connect, useSelector} from 'react-redux'
+import {withRouter} from 'react-router-dom';
+import {connect, useSelector} from 'react-redux';
+import NotFound from '../NotFound';
+import MapContainer from './MapContainer';
 
 
-const ListContainer = (props) => {
+const ListContainer = (props ) => {
 
     let {organizations} = useSelector(globalState => globalState.orgReducer)
-    console.log(props)
+    console.log(organizations)
+    
+    let givenUrl = props.match.params.id 
 
     let renderSpecificOrganization = (props) => {
-    console.log(props)
-    let givenUrl = props.match.params.id 
-    let foundOrganization = this.state.organizations.find((organizationPojo) => {
-      return organizationPojo.id === parseInt(givenUrl)
-    })
-    if (foundOrganization) {
-        return <ListContainer organization = {foundOrganization} addToMyLists={ this.addToMyLists} />
-    } else {
-        // return <NotFound />
+    // let givenUrl = props.match.params.id 
+        let foundOrganization = organizations.find((organizationPojo) => {
+        return organizationPojo.id === parseInt(givenUrl)
+        })
+        if (foundOrganization) {
+            console.log(foundOrganization)
+            return <ListCard lists={foundOrganization.lists} /> //addToMyList
+            // return <MapContainer lists={foundOrganization.lists} /> 
+        } else {
+            return <NotFound />
+        }
     }
-  }
+
+  console.log(renderSpecificOrganization())
 
             
         // let arrayOfLists = this.props.organization.lists.map((list) => {
@@ -35,7 +43,7 @@ const ListContainer = (props) => {
         <div id="list-collection">
             {renderSpecificOrganization()}
                 {/* {organizations.map} */}
-            <h1>Hello from list container</h1>
+            {/* <h1>Hello from list container</h1> */}
         </div>
 
     )
@@ -49,4 +57,4 @@ const ListContainer = (props) => {
 //     }
 // }
 
-export default ListContainer
+export default withRouter(ListContainer)

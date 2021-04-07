@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect, useSelector} from 'react-redux'
 
 const OrganizationCard = (props) => {
-    console.log(props.organization)
+    // console.log(props.organization)
 
     // state={
     //     showDescription: false

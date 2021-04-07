@@ -33,12 +33,8 @@ function App(props) {
       setOrgs(arrOfOrgs)
     })
 
-    let handleLogin = (userInfo) => {
-
-    }
-
     if(localStorage.token){
-      fetch('https://localhost:3000/users/keep_logged_in', {
+      fetch('https://localhost:3000/users/persist', {
        method: 'GET',
        headers: {
          "Authorization": localStorage.token
@@ -51,9 +47,7 @@ function App(props) {
    }
   }, [])
 
-  let renderSpecificOrganization = () => {
-    console.log("hi")
-  }
+
 
   return (
     <div className="App">

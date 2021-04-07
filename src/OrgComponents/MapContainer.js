@@ -1,44 +1,95 @@
-import React, {Component} from 'react'
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'                         
-import mapStyles from './mapStyles'
+import React, {useState}  from 'react';
+import {withRouter} from 'react-router-dom'
+import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps'
+// import { Search } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
-class MapContainer extends Component{
-    
-    state = {myMarkers: [
-    {latitude: 40.710992, longitude: -74.008292},   
-    {latitude: 40.792917, longitude: -73.969497},
-    {latitude:  40.710992, longitude: -74.008292}]
-    }
+const mapStyles = {
+  position: 'absolute',
+  marginTop: '0%',
+  marginLeft: '0%',
+  width: '100%',
+  height: '100%',
+  borderRadius: "5px"
+};
 
-    displayMarkers = () => {      
-        return this.state.myMarkers.map((mark, index) => {                
-            return <Marker id={index}  position={{                            
-                lat: mark.latitude,                                              
-                lng: mark.longitude                                                
-            }
-        } 
 
-    onClick={() => console.log("You clicked me!",{index})} />          
-    })
-    }
-    
-    render() {
-        return (
-        <div style={{
-            position: "relative",
-            width: "50%",
-            height: "1100px"}} 
-            className="map">
-            <Map google={this.props.google} 
-            zoom={13}
-            styles={mapStyles.styles}
-            initialCenter={{ lat: 40.7812, lng: -73.9665}}
-            disableDefaultUI= {true}>
-            {this.displayMarkers()}</Map>
+const MapContainer = (props) => {
+
+  // const [addModalOpen, setAddModalOpen] = React.useState(false);
+
+  // const handleAddClick = () => {
+  //   setAddModalOpen(true);
+  // };
+  // const handleClose = ()=>{
+  //   setAddModalOpen(false)
+  // }
+
+
+  const Map = () => {
+    let [selectedList, setSelectedList] = useState(null)
+      return (
+        <GoogleMap
+          defaultZoom={14}
+          defaultCenter={{lat: 40.783058, lng: -73.984016}}>
+            {props.lists.map(list => 
+              <Marker
+                key={list.id}
+                position={{
+                  lat: parseInt(list.lat),
+                  lng: parseInt(list.lng)
+                }}
+                onClick={() => {
+                  setSelectedList(list)
+                }}
+              />  
+            )}
+            {selectedList &&(
+                            <InfoWindow
+                                position={{
+                                    lat: parseInt(selectedList.lat),
+                                    lng: parseInt(selectedList.lng)
+                                }}
+                                onCloseClick={() => {
+                                    setSelectedList(null);
+                                }}>
+                                <div>
+                                    <div id='rstName_on_map'
+                                        onClick={() => {
+                                            console.log("hello")
+                                            // props.history.push(`/restaurants/${selectedRestaurant.id}`)
+                                        }}>
+                                        {selectedList.name}
+                                    </div>
+                                    {/* <p>{selectedRestaurant.cuisines}</p>
+                                    <p>{selectedRestaurant.phone_number}</p>
+                                    <p>{selectedRestaurant.address}</p>
+                                    <p>{selectedRestaurant.user_rating_text} with {selectedRestaurant.user_rating} <Icon name='star' /> </p> */}
+
+                                </div>
+                            </InfoWindow>
+                        )}
+        </GoogleMap>
+      )
+  }
+
+  console.log(Map())
+
+let WrappedMap = withScriptjs(withGoogleMap(Map))
+
+return (
+  <div>
+    <div id='map_title'>Bringing the options to you </div>
+        <div style={{margin: '5%', width: '90vw', height: '100vh'}}>
+          <WrappedMap
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing.places&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}
+            loadingElement={<div style={{height: "100%"}} />} 
+            containerElement={<div style={{height: "100%"}} />} 
+            mapElement={<div style={{height: "100%"}} />} 
+          />
         </div>
-        );
-    }}
+    </div>
+  )
+}
 
-    export default GoogleApiWrapper({
-        apiKey: process.env.REACT_APP_GOOGLE_API_KEY
-    })(MapContainer)
+export default withRouter(MapContainer);

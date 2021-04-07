@@ -4,9 +4,8 @@ import OrganizationCard from './OrganizationCard'
 import {connect, useSelector} from 'react-redux'
 
 const OrganizationContainer = (props) => {
-    // console.log(props.organizations)
+    // console.log(props)
     let {organizations} = useSelector(globalState => globalState.orgReducer)
-    console.log(organizations)
 
     return(
         <div id="org-collection">
