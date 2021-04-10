@@ -10,7 +10,7 @@ import ListContainer from './OrgComponents/ListContainer'
 // import ProfileContainer from './HomeComponents/ProfileContainer'
 // import MyListContainer from './HomeComponents/MyListContainer'
 // import RegisterForm from './HomeComponents/RegisterForm'
-// import LoginForm from './HomeComponents/LoginForm'
+import LoginForm from './HomeComponents/LoginForm'
 
 // import MapContainer from './OrgComponents/MapContainer'
 // import Geocoder from './OrgComponents/Geocoder'
@@ -18,7 +18,8 @@ import ListContainer from './OrgComponents/ListContainer'
 import {connect} from 'react-redux';
 import OrganizationContainer from './OrgComponents/OrganizationContainer';
 import {setOrgs} from './action_creators/organizations';
-import {setUser} from './action_creators/user';
+import {setLead, setUser} from './action_creators/user';
+import {setOrganizationInfo} from './action_creators/organizations'
 
 
 
@@ -41,8 +42,12 @@ function App(props) {
        }
      })
      .then(res=>res.json())
-     .then(resp => {
-       setUser(resp)
+     .then(res => {
+       if(res.role === 'Organization') {
+        setLead(res)
+       } else {
+        setUser(res)
+       }
      })
    }
   }, [])
@@ -60,7 +65,7 @@ function App(props) {
         <Route path='/organizations/:id/lists'>
           <ListContainer/>
         </Route>
-        {/* <Route path="/login" component={LoginForm} />  */}
+        <Route path="/login" component={LoginForm} /> 
 
       </Switch>
     </div>
@@ -72,8 +77,9 @@ let mapStateToProps = (globalState) => {
   return {
     organizations: globalState.organizations,
     username: globalState.username,
-    token: globalState.token,
-    error: globalState.error
+    leadname: globalState.leadname
+    // token: globalState.token,
+    // error: globalState.error
   }
 }
 

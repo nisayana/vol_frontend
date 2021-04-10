@@ -6,7 +6,7 @@ body {
 #header {
   /* display: flex; */
   justify-content: center;
-  background: #5b9159;
+  background: #035ea8;
   opacity: .8;
   height: 3rem;
   padding: 1rem;
@@ -19,7 +19,7 @@ ul.nav {
   overflow: hidden;
   display: flex;
   justify-content: space-evenly;
-  background-color: #528850;
+  background-color: #628fad;
 }
 
 #org-collection {

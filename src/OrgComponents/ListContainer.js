@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {connect, useSelector} from 'react-redux';
 import NotFound from '../NotFound';
 import MapContainer from './MapContainer';
+import { LabelDetail } from 'semantic-ui-react';
 
 
 const ListContainer = (props ) => {
@@ -20,8 +21,13 @@ const ListContainer = (props ) => {
         })
         if (foundOrganization) {
             console.log(foundOrganization)
-            return <ListCard lists={foundOrganization.lists} /> //addToMyList
-            // return <MapContainer lists={foundOrganization.lists} /> 
+            let arrOfCoordinates = foundOrganization.lists.map((list) => {
+                return {lng: list.lng, lat: list.lat}
+            })
+            return (<> 
+            <ListCard lists={foundOrganization.lists} />
+            <MapContainer coordinates={arrOfCoordinates} /> 
+            </>)
         } else {
             return <NotFound />
         }
