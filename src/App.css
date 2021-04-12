@@ -19,7 +19,7 @@ ul.nav {
   overflow: hidden;
   display: flex;
   justify-content: space-evenly;
-  background-color: #628fad;
+  background-color: #a1a1a1;
 }
 
 #org-collection {
@@ -135,3 +135,33 @@ button:hover {
         padding-left: 10px;
       }
 
+      #Login-Grid {
+        height: 75vh;
+      }
+      
+      #Login-Grid .Login-Column {
+        max-width: 450px;
+      }
+      
+      #Login-Grid .Login-Header {
+        /* color: #534292; */
+        color: #ffffff;
+      }
+      
+      #Login-Grid .Login-Column .Login-Button-Color {
+        background: #035ea8;
+        color: #ffffff;
+      }
+      
+      #Login-Grid .Login-Message {
+        color: #035ea8;
+      }
+
+      #Signup-Grid .Signup-Column .Signup-Button-Color {
+        background: #035ea8;
+        color: #ffffff;
+      }
+
+      #Signup-Grid .Signup-Message {
+        color: #035ea8;
+      }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {connect, useSelector} from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Form, Grid, Select, Segment, Header, Divider, Image, Button } from 'semantic-ui-react';
-import {setUser, setLead} from '../action_creators/user';
+import { withRouter, Link } from 'react-router-dom';
+import { Button, Form, Grid, Header, Message, Segment, Icon } from 'semantic-ui-react';
+import {setUser, setLead, saveErrorToState} from '../action_creators/user';
 
 class LoginForm extends React.Component {
 
@@ -10,8 +10,10 @@ class LoginForm extends React.Component {
     username: "",
     leadname: "",
     password: "",
-    logging_in_as: "user"
+    // error_message: "",
+    givenUrl: "/volunteer_login"
   }
+
 
   handleChange = (e) => {
     this.setState({
@@ -26,9 +28,8 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    console.log(this)
     e.preventDefault()
-    if(this.state.logging_in_as === 'user') {
+    if(this.state.givenUrl === '/volunteer_login') {
       fetch('http://localhost:3000/user_login', {
         method: "POST",
         headers: {
@@ -40,11 +41,19 @@ class LoginForm extends React.Component {
         })
       })
       .then(res => res.json())
-      .then(userInfo => {
-        this.props.setUser(userInfo)
-        localStorage.token = userInfo.token
-        this.props.history.push('/')
-      })
+      .then(resp => {
+        if(resp.error){
+          alert(resp.error)
+        } else {
+          this.props.setUser(resp)
+          localStorage.token = resp.token
+          this.props.history.push('/') //user_home
+        }
+      }
+      //   userInfo => {
+
+      // }
+      )
     } else {
       fetch('http://localhost:3000/organization_login', {
         method: "POST",
@@ -57,55 +66,62 @@ class LoginForm extends React.Component {
         })
       })
       .then(res => res.json())
-      .then(leadInfo => {
-        this.props.setLead(leadInfo)
-        localStorage.token = leadInfo.token
-        this.props.history.push('/')
+      .then(resp => {
+        if (resp === "error") {
+          alert(resp.error)
+        } else {
+          this.props.setLead(resp)
+          localStorage.token = resp.token
+          this.props.history.push('/organization_home')
+        }
       })
     }
   }
 
-    // let {formName} = this.props
-    // let {name, password} = this.state
-    // console.log("form", this.props)
     render() {
 
-      const { username, password } = this.state
+    const givenUrl = this.props.match.url
 
-      const userTypes = [
-        {key: 'user', value: 'user', text: 'Volunteer'},
-        {key: 'lead', value: 'lead', text: 'Organization Lead'}
-    ]
+    const { username, password } = this.state
+
     return (
-      <Segment>
-            <Grid columns={2} relaxed='very' stackable>
-                <Grid.Column verticalAlign='middle'>
-                    <Header color='teal' textAlign='center'>Log In Here</Header>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Input
-                            icon='user'
-                            iconPosition='left'
-                            placeholder='Username'
-                            name='username'
-                            value={username}
-                            onChange={this.handleChange}
-                        />
-                        <Form.Input
-                            icon='lock'
-                            iconPosition='left'
-                            placeholder='Password'
-                            name='password'
-                            value={password}
-                            type='password'
-                            onChange={this.handleChange}
-                        />
-                        <Select placeholder='Select User Type' options={userTypes} onChange={this.handleSelect} />
-                        <Button floated='right' content='Log In' />
-                    </Form>
-                </Grid.Column>
-
-            </Grid>
-            </Segment>
+    <Grid textAlign='center' verticalAlign='middle' id="Login-Grid">
+      <Grid.Column className="Login-Column">
+        <Header as='h2' className="Login-Header" textAlign='center'>
+          <Icon name='sign-in' />
+          Login to your account
+        </Header>
+        <Form size='large' onSubmit={this.handleSubmit}>
+          <Segment>
+            <Form.Input 
+              fluid icon='user' 
+              iconPosition='left' 
+              placeholder='Username' 
+              name='username'
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              icon='lock'
+              iconPosition='left'
+              placeholder='Password'
+              type='password'
+              name='password'
+              onChange={this.handleChange}
+            />
+            <Button className="Login-Button-Color" fluid size='large'>
+              Login
+            </Button>
+          </Segment>
+        </Form>
+        <Message className="Login-Message">
+          <span>Don't have an account? </span>
+          <Link to="/signup">
+            Sign Up
+          </Link>
+        </Message>
+      </Grid.Column>
+    </Grid>
     );
   }
 }

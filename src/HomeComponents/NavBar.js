@@ -1,22 +1,37 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
+import { Dropdown, Menu, Button, Icon, Popup, Modal } from 'semantic-ui-react';
 
-const NavBar = () => {
+
+const NavBar = (props) => {
+
+  console.log(props)
+
+  const handleLogout = (props) => {
+    localStorage.clear()
+    // props.history.push("/")
+  }
+
   return(
+    <div>
+      {localStorage.token
+      ?
+      <Menu.Item onClick={handleLogout}>
+      <Button className="Navbar-Button-Color Button-Change">Logout</Button>
+      </Menu.Item>
+      :
     <ul className="nav">
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/volunteer_login">Volunteer</NavLink>
       </li>
       <li>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink to="/organization_login">Organization</NavLink>
       </li>
-      <li>
-        <NavLink to="/profile">Profile</NavLink>
-      </li>
-    </ul>
+    </ul>}
+    </div>
   )
 };
 

@@ -11,6 +11,8 @@ import ListContainer from './OrgComponents/ListContainer'
 // import MyListContainer from './HomeComponents/MyListContainer'
 // import RegisterForm from './HomeComponents/RegisterForm'
 import LoginForm from './HomeComponents/LoginForm'
+import SignupForm from './HomeComponents/SignupForm'
+
 
 // import MapContainer from './OrgComponents/MapContainer'
 // import Geocoder from './OrgComponents/Geocoder'
@@ -21,9 +23,10 @@ import {setOrgs} from './action_creators/organizations';
 import {setLead, setUser} from './action_creators/user';
 import {setOrganizationInfo} from './action_creators/organizations'
 
+import OrganizationHome from './HomeComponents/OrganizationHome'
+import UserHome from './HomeComponents/UserHome'
 
-
-function App(props) {
+const App = (props) => {
 
   // let [token, setToken] = useState("")
 
@@ -65,7 +68,13 @@ function App(props) {
         <Route path='/organizations/:id/lists'>
           <ListContainer/>
         </Route>
-        <Route path="/login" component={LoginForm} /> 
+        <Route path="/volunteer_login" component={LoginForm} /> 
+        <Route path="/organization_login" component={LoginForm} /> 
+        <Route path="/signup" component={SignupForm} /> 
+
+
+        <Route path='/user_home' component={UserHome}/>
+        <Route path='/organization_home' component={OrganizationHome}/>
 
       </Switch>
     </div>

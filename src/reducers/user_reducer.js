@@ -26,6 +26,12 @@ let userReducer = (state=initialStateOfUser, action) => {
                 ...state,
                 myList: action.payload
             }
+
+        case "SAVE_ERROR": 
+            return {
+                ...state,
+                error: action.payload
+            }
         default: 
         return state
     }

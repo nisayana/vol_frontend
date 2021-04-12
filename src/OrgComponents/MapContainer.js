@@ -21,6 +21,8 @@ const MapContainer = (props) => {
   const Map = () => {
     let [selectedList, setSelectedList] = useState(null)
 
+    console.log(selectedList)
+
       return (
         <GoogleMap
           defaultZoom={12}
@@ -32,16 +34,16 @@ const MapContainer = (props) => {
                   lat: parseFloat(coordinate.lat),
                   lng: parseFloat(coordinate.lng)
                 }}
-                // onClick={() => {
-                //   setSelectedList(coordinate) 
-                // }}
+                onClick={() => {
+                  setSelectedList(coordinate) 
+                }}
               />  
             )}
-            {/* {selectedList &&(
+            {selectedList &&(
                             <InfoWindow
                                 position={{
-                                    lat: parseInt(selectedList.lat),
-                                    lng: parseInt(selectedList.lng)
+                                    lat: parseFloat(selectedList.lat),
+                                    lng: parseFloat(selectedList.lng)
                                 }}
                                 onCloseClick={() => {
                                     setSelectedList(null);
@@ -49,19 +51,19 @@ const MapContainer = (props) => {
                                 <div>
                                     <div id='rstName_on_map'
                                         onClick={() => {
-                                            console.log("hello") */}
-                                            {/* // props.history.push(`/restaurants/${selectedRestaurant.id}`)
-                                    //     }}>
-                                    //     {selectedList.name}
-                                    // </div> */}
+                                            console.log("hello")
+                                            // props.history.push(`/restaurants/${selectedRestaurant.id}`)
+                                    }}>
+                                    {selectedList.name}
+                                    </div>
                                     {/* <p>{selectedRestaurant.cuisines}</p>
                                     <p>{selectedRestaurant.phone_number}</p>
                                     <p>{selectedRestaurant.address}</p>
                                     <p>{selectedRestaurant.user_rating_text} with {selectedRestaurant.user_rating} <Icon name='star' /> </p> */}
-{/* 
+
                                 </div>
                             </InfoWindow>
-                        )} */}
+                        )}
         </GoogleMap>
       )
   }
