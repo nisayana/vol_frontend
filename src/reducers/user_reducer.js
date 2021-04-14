@@ -1,4 +1,4 @@
-let initialStateOfUser = {
+const initialStateOfUser = {
     userInfo: "",
     token: "",
     error: "",
@@ -6,7 +6,7 @@ let initialStateOfUser = {
     myList: []
 }
 
-let userReducer = (state=initialStateOfUser, action) => {
+const userReducer = (state=initialStateOfUser, action) => {
     // debugger
     switch(action.type) {
         case "SET_USER":

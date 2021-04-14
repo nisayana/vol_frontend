@@ -46,7 +46,10 @@ class LoginForm extends React.Component {
           alert(resp.error)
         } else {
           this.props.setUser(resp)
-          localStorage.token = resp.token
+          console.log(localStorage)
+          localStorage.setItem("token", resp.token)
+          console.log(localStorage)
+          // localStorage.token = resp.token
           this.props.history.push('/') //user_home
         }
       }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SignupForm = () => {
+const OrganizationSignup = () => {
     return(
         <h1>signup page</h1>
     )
 }
 
-export default SignupForm
+export default OrganizationSignup

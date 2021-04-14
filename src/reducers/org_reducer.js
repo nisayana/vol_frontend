@@ -1,8 +1,8 @@
-let initialStateOfOrgReducer = {
+const initialStateOfOrgReducer = {
     organizations: []
 }
 
-let orgReducer = (state = initialStateOfOrgReducer, action) => {
+const orgReducer = (state = initialStateOfOrgReducer, action) => {
     switch(action.type){
         case "SET_ORGS":
             return {

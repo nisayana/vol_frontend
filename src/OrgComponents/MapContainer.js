@@ -16,12 +16,12 @@ const MapContainer = (props) => {
   //   setAddModalOpen(false)
   // }
 
-  console.log(props)
+  // console.log(props)
 
   const Map = () => {
     let [selectedList, setSelectedList] = useState(null)
 
-    console.log(selectedList)
+    // console.log(selectedList)
 
       return (
         <GoogleMap
@@ -40,30 +40,30 @@ const MapContainer = (props) => {
               />  
             )}
             {selectedList &&(
-                            <InfoWindow
-                                position={{
-                                    lat: parseFloat(selectedList.lat),
-                                    lng: parseFloat(selectedList.lng)
-                                }}
-                                onCloseClick={() => {
-                                    setSelectedList(null);
-                                }}>
-                                <div>
-                                    <div id='rstName_on_map'
-                                        onClick={() => {
-                                            console.log("hello")
-                                            // props.history.push(`/restaurants/${selectedRestaurant.id}`)
-                                    }}>
-                                    {selectedList.name}
-                                    </div>
-                                    {/* <p>{selectedRestaurant.cuisines}</p>
-                                    <p>{selectedRestaurant.phone_number}</p>
-                                    <p>{selectedRestaurant.address}</p>
-                                    <p>{selectedRestaurant.user_rating_text} with {selectedRestaurant.user_rating} <Icon name='star' /> </p> */}
+                  <InfoWindow
+                      position={{
+                          lat: parseFloat(selectedList.lat),
+                          lng: parseFloat(selectedList.lng)
+                      }}
+                      onCloseClick={() => {
+                          setSelectedList(null);
+                      }}>
+                      <div>
+                          <div id='rstName_on_map'
+                              onClick={() => {
+                                  console.log("hello")
+                                  // props.history.push(`/restaurants/${selectedRestaurant.id}`)
+                          }}>
+                          {selectedList.name}
+                          </div>
+                          {/* <p>{selectedRestaurant.cuisines}</p>
+                          <p>{selectedRestaurant.phone_number}</p>
+                          <p>{selectedRestaurant.address}</p>
+                          <p>{selectedRestaurant.user_rating_text} with {selectedRestaurant.user_rating} <Icon name='star' /> </p> */}
 
-                                </div>
-                            </InfoWindow>
-                        )}
+                      </div>
+                  </InfoWindow>
+              )}
         </GoogleMap>
       )
   }

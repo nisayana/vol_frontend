@@ -7,11 +7,11 @@ import Header from './Header'
 import NavBar from './HomeComponents/NavBar'
 
 import ListContainer from './OrgComponents/ListContainer'
-// import ProfileContainer from './HomeComponents/ProfileContainer'
+import ProfileContainer from './HomeComponents/ProfileContainer'
 // import MyListContainer from './HomeComponents/MyListContainer'
 // import RegisterForm from './HomeComponents/RegisterForm'
 import LoginForm from './HomeComponents/LoginForm'
-import SignupForm from './HomeComponents/SignupForm'
+// import OrganizationSignup from './HomeComponents/OrganizationSignup'
 
 
 // import MapContainer from './OrgComponents/MapContainer'
@@ -25,6 +25,7 @@ import {setOrganizationInfo} from './action_creators/organizations'
 
 import OrganizationHome from './HomeComponents/OrganizationHome'
 import UserHome from './HomeComponents/UserHome'
+import VolunteerSignup from './HomeComponents/VolunteerSignup';
 
 const App = (props) => {
 
@@ -38,7 +39,7 @@ const App = (props) => {
     })
 
     if(localStorage.token){
-      fetch('https://localhost:3000/users/persist', {
+      fetch('http://localhost:3000/users/persist', {
        method: 'GET',
        headers: {
          "Authorization": localStorage.token
@@ -47,11 +48,17 @@ const App = (props) => {
      .then(res=>res.json())
      .then(res => {
        if(res.role === 'Organization') {
+        console.log(res)
+
         setLead(res)
        } else {
+         console.log(res)
         setUser(res)
        }
      })
+     .catch(error => {
+       console.log(error)
+     }) 
    }
   }, [])
 
@@ -70,7 +77,9 @@ const App = (props) => {
         </Route>
         <Route path="/volunteer_login" component={LoginForm} /> 
         <Route path="/organization_login" component={LoginForm} /> 
-        <Route path="/signup" component={SignupForm} /> 
+        <Route path="/profile" component={ProfileContainer} /> 
+
+        {/* <Route path="/signup" component={VolunteerSignup} />  */}
 
 
         <Route path='/user_home' component={UserHome}/>
