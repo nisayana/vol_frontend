@@ -7,11 +7,11 @@ import OrganizationContainer from './OrganizationContainer'
 
 const ListCard = (props) => {
 
-  const {userInfo} = useSelector(globalState => globalState.userReducer)
+  const {id} = useSelector(globalState => globalState.userReducer)
 
-  console.log(userInfo)
+  console.log(id)
 
-  const addList = (list_id) => {
+  const addToMyList = (list_id) => {
         // console.log("click me", this.props)
         // this.props.addToMyLists(this.props.list)
         fetch('http://localhost:3000/dash_list_joiners', {
@@ -21,12 +21,13 @@ const ListCard = (props) => {
           },
           body: JSON.stringify({
             list_id: list_id,
-            // user: useSe()
+            user_id: id
           })
       })
-        .then(r => r.json())
-        .then(newMyList => {
-          console.log("hi")
+        .then(res => res.json())
+        .then(myList => {
+          // addList(myList)
+          console.log(myList)
           // this.setState(prevState => ({
           //   myLists: [...prevState.myLists, newMyList]
           // })
@@ -40,7 +41,7 @@ const ListCard = (props) => {
         <h2>{list.name} </h2>
         <h3>{list.description}</h3>
         <h3>Location: {list.location}</h3>
-        <button className="add" onClick = {()=> addList(list.id)}><span>Add To My List</span></button> 
+        <button className="add" onClick = {()=> addToMyList(list.id)}><span>Add To My List</span></button> 
         </li>)
     })
 

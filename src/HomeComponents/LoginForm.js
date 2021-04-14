@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import {connect, useSelector} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Message, Segment, Icon } from 'semantic-ui-react';
-import {setUser, setLead, saveErrorToState} from '../action_creators/user';
+import {setUserInfo, setOrgInfo, saveErrorToState} from '../action_creators/user';
 
 class LoginForm extends React.Component {
 
   state = {
-    username: "",
-    leadname: "",
-    password: "",
-    // error_message: "",
-    givenUrl: "/volunteer_login"
+    username: '',
+    leadname: '',
+    email: '',
+    password: '',
+    // error_message: '',
+    // givenUrl: 'http://localhost:3001/volunteer_login'
+    logging_in_as: 'user'
   }
-
+ 
 
   handleChange = (e) => {
     this.setState({
@@ -27,16 +29,26 @@ class LoginForm extends React.Component {
     })
   }
 
+  componentDidMount() {
+    let url = window.location.href.split('/')
+    url = url[url.length-1]
+    console.log(url)
+
+    if ( url === 'org_login') {
+      this.setState({logging_in_as: 'organization'})
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
-    if(this.state.givenUrl === '/volunteer_login') {
+    if(this.state.logging_in_as === 'user') {
       fetch('http://localhost:3000/user_login', {
         method: "POST",
         headers: {
           'Content-type': 'Application/json'
         },
         body: JSON.stringify({
-          username: this.state.username,
+          email: this.state.email,
           password: this.state.password
         })
       })
@@ -45,18 +57,14 @@ class LoginForm extends React.Component {
         if(resp.error){
           alert(resp.error)
         } else {
-          this.props.setUser(resp)
+          this.props.setUserInfo(resp)
           console.log(localStorage)
           localStorage.setItem("token", resp.token)
           console.log(localStorage)
           // localStorage.token = resp.token
           this.props.history.push('/') //user_home
         }
-      }
-      //   userInfo => {
-
-      // }
-      )
+      })
     } else {
       fetch('http://localhost:3000/organization_login', {
         method: "POST",
@@ -64,7 +72,7 @@ class LoginForm extends React.Component {
           'Content-type': 'Application/json'
         },
         body: JSON.stringify({
-          leadname: this.state.leadname,
+          email: this.state.email,
           password: this.state.password
         })
       })
@@ -73,8 +81,9 @@ class LoginForm extends React.Component {
         if (resp === "error") {
           alert(resp.error)
         } else {
-          this.props.setLead(resp)
-          localStorage.token = resp.token
+          this.props.setOrgInfo(resp)
+          localStorage.setItem("token", resp.token)
+          // localStorage.token = resp.token
           this.props.history.push('/organization_home')
         }
       })
@@ -85,7 +94,7 @@ class LoginForm extends React.Component {
 
     const givenUrl = this.props.match.url
 
-    const { username, password } = this.state
+    const { email, password } = this.state
 
     return (
     <Grid textAlign='center' verticalAlign='middle' id="Login-Grid">
@@ -99,8 +108,8 @@ class LoginForm extends React.Component {
             <Form.Input 
               fluid icon='user' 
               iconPosition='left' 
-              placeholder='Username' 
-              name='username'
+              placeholder='Email' 
+              name='email'
               onChange={this.handleChange}
             />
             <Form.Input
@@ -131,8 +140,8 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return { 
-      setUser: (userInfo) => dispatch(setUser(userInfo)),
-      setLead: (leadInfo) => dispatch(setLead(leadInfo))
+      setUserInfo: (userInfo) => dispatch(setUserInfo(userInfo)),
+      setOrgInfo: (orgInfo) => dispatch(setOrgInfo(orgInfo))
   }
 }
 

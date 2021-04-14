@@ -1,30 +1,34 @@
 const initialStateOfUser = {
-    userInfo: "",
+    userInfo: {},
+    // email: "",
     token: "",
     error: "",
-    leadInfo: "",
-    myList: []
+    orgInfo: {},
+    userLists: []
 }
 
 const userReducer = (state=initialStateOfUser, action) => {
     // debugger
     switch(action.type) {
-        case "SET_USER":
+        case "SET_USER_INFO":
             return {
                 ...state,
-                userInfo: action.payload.userInfo,
+                // id: action.payload.user.id,
+                userInfo: action.payload.user,
+                // email: action.payload.user.email,
                 token: action.payload.token
             }
-        case "SET_LEAD":
+        case "SET_ORG_INFO":
+            console.log(action.payload)
             return {
                     ...state,
-                    leadInfo: action.payload.leadInfo,
+                    orgInfo: action.payload.user,
                     token: action.payload.token
                 }
         case "ADD_LIST":
             return {
                 ...state,
-                myList: action.payload
+                userLists: action.payload
             }
 
         case "SAVE_ERROR": 

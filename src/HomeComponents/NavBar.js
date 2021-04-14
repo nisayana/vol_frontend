@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import {setUser} from '../action_creators/user'
+import {setUserInfo} from '../action_creators/user'
 import { Dropdown, Menu, Button, Icon, Popup, Modal } from 'semantic-ui-react';
 
 
@@ -10,7 +10,7 @@ const NavBar = (props) => {
 
   const handleLogout = (props) => {
     localStorage.clear()
-    setUser({})
+    setUserInfo({})
     // props.history.push("/")
   }
 
@@ -40,10 +40,10 @@ const NavBar = (props) => {
           <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink to="/volunteer_login">Volunteer</NavLink>
+          <NavLink to="/login">Volunteer</NavLink>
         </li>
         <li>
-          <NavLink to="/organization_login">Organization</NavLink>
+          <NavLink to="/org_login">Organization</NavLink>
         </li>
       </ul>}
     </div>

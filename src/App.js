@@ -20,7 +20,7 @@ import LoginForm from './HomeComponents/LoginForm'
 import {connect} from 'react-redux';
 import OrganizationContainer from './OrgComponents/OrganizationContainer';
 import {setOrgs} from './action_creators/organizations';
-import {setLead, setUser} from './action_creators/user';
+import {setOrgInfo, setUserInfo} from './action_creators/user';
 import {setOrganizationInfo} from './action_creators/organizations'
 
 import OrganizationHome from './HomeComponents/OrganizationHome'
@@ -39,21 +39,21 @@ const App = (props) => {
     })
 
     if(localStorage.token){
-      fetch('http://localhost:3000/users/persist', {
+      fetch('http://localhost:3000/persist', {
        method: 'GET',
        headers: {
          "Authorization": localStorage.token
        }
      })
      .then(res=>res.json())
-     .then(res => {
-       if(res.role === 'Organization') {
-        console.log(res)
+     .then(resp => {
+       if(resp.role === 'Organization') {
+        console.log(resp)
 
-        setLead(res)
+        setOrgInfo(resp)
        } else {
-         console.log(res)
-        setUser(res)
+         console.log(resp)
+        setUserInfo(resp)
        }
      })
      .catch(error => {
@@ -75,8 +75,10 @@ const App = (props) => {
         <Route path='/organizations/:id/lists'>
           <ListContainer/>
         </Route>
-        <Route path="/volunteer_login" component={LoginForm} /> 
-        <Route path="/organization_login" component={LoginForm} /> 
+        <Route path="/org_login" component={LoginForm} /> 
+
+        <Route path="/login" component={LoginForm} /> 
+        {/* <Route path="/organization_login" component={LoginForm} />  */}
         <Route path="/profile" component={ProfileContainer} /> 
 
         {/* <Route path="/signup" component={VolunteerSignup} />  */}
@@ -91,11 +93,11 @@ const App = (props) => {
 }
 
 let mapStateToProps = (globalState) => {
-  // console.log(globalState)
+  console.log(globalState)
   return {
     organizations: globalState.organizations,
-    username: globalState.username,
-    leadname: globalState.leadname
+    userInfo: globalState.userInfo,
+    orgInfo: globalState.orgInfo
     // token: globalState.token,
     // error: globalState.error
   }
