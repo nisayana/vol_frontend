@@ -11,8 +11,6 @@ class LoginForm extends React.Component {
     leadname: '',
     email: '',
     password: '',
-    // error_message: '',
-    // givenUrl: 'http://localhost:3001/volunteer_login'
     logging_in_as: 'user'
   }
  

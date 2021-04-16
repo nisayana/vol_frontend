@@ -19,16 +19,16 @@ const OrganizationCard = (props) => {
         //this.props.categoryCard.organizations
     }
         // console.log(this.props.organizationCard.description)
-        let {name, image, description, id } = props.organization
+    let {name, image, description, id } = props.organization
         
-        return (
-            <div className="card"> 
-                <Link to={`/organizations/${id}/lists`}>            
-                    <h2>{name}</h2>
-                    <img src={image} alt={name} onClick={handleClick} className="organization-image"/>
-                </Link> 
-            </div>
-        )
+    return (
+        <div className="card"> 
+            <Link to={`/organizations/${id}/lists`}>            
+                <h2>{name}</h2>
+                <img src={image} alt={name} onClick={handleClick} className="organization-image"/>
+            </Link> 
+        </div>
+    )
 }
 
 export default OrganizationCard;

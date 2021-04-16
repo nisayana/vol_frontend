@@ -1,12 +1,13 @@
-import React from 'react'
-import {NavLink} from 'react-router-dom'
-import {setUserInfo} from '../action_creators/user'
+import React from 'react';
+import {NavLink} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {setUserInfo} from '../action_creators/user';
 import { Dropdown, Menu, Button, Icon, Popup, Modal } from 'semantic-ui-react';
 
 
 const NavBar = (props) => {
 
-  console.log(props)
+  const {token} = useSelector(state => state.userReducer)
 
   const handleLogout = (props) => {
     localStorage.clear()
@@ -21,7 +22,7 @@ const NavBar = (props) => {
 
   return(
     <div>
-      {localStorage.token
+      {token
       ?
       <ul className='nav'>
         <li>

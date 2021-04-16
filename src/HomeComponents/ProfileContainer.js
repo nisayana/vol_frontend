@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import MyList from './MyList'
-import MyListContainer from './MyListContainer'
+import {connect, useSelector} from 'react-redux';
 
-class Profile extends Component {
+const Profile = (props) => {
 
-    render(){
-        console.log(this.props)
-        return(
-            <div>Hello from Profile</div>
-        )
-    } 
+    const {dash_list_joiners} =  useSelector(globalState => globalState.userReducer.userInfo)
+
+    console.log(dash_list_joiners)
+
+    // const arrOfLists = dash_list_joiners.map(opportList => {
+    //     return (<li>{opportList.list.name}</li>)
+    // })
+
+    return(
+        <div>
+            <ul>
+                <li>
+                    {/* {arrOfLists} */}
+                    <h1>PROFILE</h1>
+                </li>
+            </ul>
+        </div>
+    )
 }
 
 export default Profile;

@@ -1,35 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import {Link, Switch, Route, Redirect, useHistory} from 'react-router-dom';
-import './App.css'
-import NotFound from './NotFound'
-// import HomeContainer from './OrgComponents/HomeContainer'
-import Header from './Header'
-import NavBar from './HomeComponents/NavBar'
-
-import ListContainer from './OrgComponents/ListContainer'
-import ProfileContainer from './HomeComponents/ProfileContainer'
-// import MyListContainer from './HomeComponents/MyListContainer'
-// import RegisterForm from './HomeComponents/RegisterForm'
-import LoginForm from './HomeComponents/LoginForm'
-// import OrganizationSignup from './HomeComponents/OrganizationSignup'
-
-
-// import MapContainer from './OrgComponents/MapContainer'
-// import Geocoder from './OrgComponents/Geocoder'
-
 import {connect} from 'react-redux';
-import OrganizationContainer from './OrgComponents/OrganizationContainer';
-import {setOrgs} from './action_creators/organizations';
-import {setOrgInfo, setUserInfo} from './action_creators/user';
-import {setOrganizationInfo} from './action_creators/organizations'
+import {Link, Switch, Route, Redirect, useHistory} from 'react-router-dom';
+import './App.css';
 
-import OrganizationHome from './HomeComponents/OrganizationHome'
-import UserHome from './HomeComponents/UserHome'
+import Header from './Header';
+import NavBar from './HomeComponents/NavBar';
+import NotFound from './NotFound';
+
+import ProfileContainer from './HomeComponents/ProfileContainer';
+import LoginForm from './HomeComponents/LoginForm';
 import VolunteerSignup from './HomeComponents/VolunteerSignup';
 
-const App = (props) => {
+import OrganizationContainer from './OrgComponents/OrganizationContainer';
+import ListContainer from './OrgComponents/ListContainer';
 
-  // let [token, setToken] = useState("")
+import {setOrgs} from './action_creators/organizations';
+import {setOrgInfo, setUserInfo} from './action_creators/user';
+import {setOrganizationInfo} from './action_creators/organizations';
+
+import OrganizationHome from './HomeComponents/OrganizationHome';
+import UserHome from './HomeComponents/UserHome';
+
+const App = (props) => {
 
   useEffect(() => {
     fetch("http://localhost:3000/organizations")
@@ -81,9 +73,7 @@ const App = (props) => {
         {/* <Route path="/organization_login" component={LoginForm} />  */}
         <Route path="/profile" component={ProfileContainer} /> 
 
-        {/* <Route path="/signup" component={VolunteerSignup} />  */}
-
-
+        <Route path="/signup" component={VolunteerSignup} /> 
         <Route path='/user_home' component={UserHome}/>
         <Route path='/organization_home' component={OrganizationHome}/>
 

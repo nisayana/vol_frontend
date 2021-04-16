@@ -23,12 +23,4 @@ const OrganizationContainer = (props) => {
     )
 }
 
-
-// let mapStateToProps = (globalState) => {
-//     console.log(globalState)
-//     return {
-//         organizations: globalState.orgReducer.organizations
-//     }
-// }
-
 export default OrganizationContainer;

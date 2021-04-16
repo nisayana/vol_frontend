@@ -4,7 +4,7 @@ const initialStateOfUser = {
     token: "",
     error: "",
     orgInfo: {},
-    userLists: []
+    userList: []
 }
 
 const userReducer = (state=initialStateOfUser, action) => {
@@ -28,7 +28,7 @@ const userReducer = (state=initialStateOfUser, action) => {
         case "ADD_LIST":
             return {
                 ...state,
-                userLists: action.payload
+                userInfo: {...state.userInfo, dash_list_joiners: [...state.userInfo.dash_list_joiners, action.payload]}
             }
 
         case "SAVE_ERROR": 

@@ -1,10 +1,14 @@
 import React from 'react';
 import {useState} from 'react';
+import {connect} from 'react-redux';
+import {setUserInfo} from '../action_creators/user';
 import { Button, Form, Grid, Header, Message, Segment, Icon, Input, List } from 'semantic-ui-react';
 
 
 
 const VolunteerSignup = (props) => {
+
+  console.log("hello")
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
