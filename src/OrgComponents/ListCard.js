@@ -38,6 +38,7 @@ const ListCard = (props) => {
       <h2>{list.name} </h2>
       <h3>{list.description}</h3>
       <h3>Location: {list.location}</h3>
+      {/* <h3>Date: {list.date}</h3> */}
       <button className="add" onClick = {()=> addToMyList(list.id)}><span>Add to my list</span></button> 
     </li>)
   })

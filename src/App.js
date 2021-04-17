@@ -10,6 +10,7 @@ import NotFound from './NotFound';
 import ProfileContainer from './HomeComponents/ProfileContainer';
 import LoginForm from './HomeComponents/LoginForm';
 import VolunteerSignup from './HomeComponents/VolunteerSignup';
+import OrgSignup from './HomeComponents/OrgSignup';
 
 import OrganizationContainer from './OrgComponents/OrganizationContainer';
 import ListContainer from './OrgComponents/ListContainer';
@@ -68,12 +69,13 @@ const App = (props) => {
           <ListContainer/>
         </Route>
         <Route path="/org_login" component={LoginForm} /> 
-
         <Route path="/login" component={LoginForm} /> 
         {/* <Route path="/organization_login" component={LoginForm} />  */}
         <Route path="/profile" component={ProfileContainer} /> 
 
         <Route path="/signup" component={VolunteerSignup} /> 
+        <Route path="/org_signup" component={OrgSignup} /> 
+
         <Route path='/user_home' component={UserHome}/>
         <Route path='/organization_home' component={OrganizationHome}/>
 

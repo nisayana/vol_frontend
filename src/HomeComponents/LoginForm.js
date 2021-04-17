@@ -11,7 +11,8 @@ class LoginForm extends React.Component {
     leadname: '',
     email: '',
     password: '',
-    logging_in_as: 'user'
+    logging_in_as: 'user',
+    // signing_in_as: 'user'
   }
  
 
@@ -28,9 +29,10 @@ class LoginForm extends React.Component {
   }
 
   componentDidMount() {
+
+    // REFACTOR 
     let url = window.location.href.split('/')
     url = url[url.length-1]
-    console.log(url)
 
     if ( url === 'org_login') {
       this.setState({logging_in_as: 'organization'})
@@ -124,9 +126,11 @@ class LoginForm extends React.Component {
             </Button>
           </Segment>
         </Form>
+        {/* CONDITION FOR SIGN UP */}
+        
         <Message className="Login-Message">
           <span>Don't have an account? </span>
-          <Link to="/signup">
+          <Link to={this.state.logging_in_as === 'user' ? '/signup' : '/org_signup'}>
             Sign Up
           </Link>
         </Message>
