@@ -9,6 +9,11 @@ const orgReducer = (state = initialStateOfOrgReducer, action) => {
                 ...state,
                 organizations: action.payload
             }
+        case "ADD_ORG":
+            return {
+                ...state,
+                organizations: action.payload
+            }
         default: 
             return state
     }
