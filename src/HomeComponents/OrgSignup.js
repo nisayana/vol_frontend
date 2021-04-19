@@ -8,12 +8,9 @@ import { setOrgInfo } from '../action_creators/user';
 const OrgSignup = (props) => {
 
   const [fields, handleFieldChange] = useFormFields({
-    email: "",
     name: "",
-    // lastName: "",
-    // jobTitle: "",
+    email: "",
     password: "",
-    // company: ""
   })
 
   const handleSubmit = (evt) => {
@@ -34,7 +31,9 @@ const OrgSignup = (props) => {
     .then(orgInfo => {
       setOrgInfo(orgInfo)
       addOrg(orgInfo)
-      localStorage.token = orgInfo.token
+      localStorage.setItem("token", orgInfo.token)
+
+      // localStorage.token = orgInfo.token
       props.history.push('/organization_home')
     })
   }

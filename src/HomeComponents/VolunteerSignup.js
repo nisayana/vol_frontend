@@ -1,88 +1,70 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {setUserInfo} from '../action_creators/user';
-import { Button, Form, Grid, Header, Message, Segment, Icon, Input, List } from 'semantic-ui-react';
-
-
+// import {addOrg} from '../action_creators/organizations';
+import useFormFields from '../hooks/useFormFields'
+import {Link, withRouter} from 'react-router-dom';
+import { setUserInfo} from '../action_creators/user';
 
 const VolunteerSignup = (props) => {
 
-  console.log("hello")
+  const [fields, handleFieldChange] = useFormFields({
+    name: "",
+    email: "",
+    password: "",
+  })
 
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
 
-    const createUser = (data) => {
-        return fetch("http://localhost:3000/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(resp => {
-            if (data.error) {
-                console.error(resp.error)
-            } else {
-                // localStorage.token = token
+    fetch('http://localhost:3000/volunteer_signup', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'Application/json'
+      },
+      body: JSON.stringify({
+        // name: fields.name,
+        email: fields.email,
+        password: fields.password
+      })
+    })
+    .then(res => res.json())
+    .then(userInfo => {
+      setUserInfo(userInfo)
+      // addOrg(userInfo)
+      localStorage.setItem("token", userInfo.token)
 
-            }
-        })
-    }
+      // localStorage.token = orgInfo.token
+      props.history.push('/')
+    })
+  }
 
-    const handleSubmit = () =>{
-
-    }
-
-    const handleChange = () => {
-
-    }
-
-    return(
-        <Grid textAlign='center' id="Signup-Grid" verticalAlign='middle'>
-      <Grid.Column className="Signup-Column">
-        <Header as='h2' className="Signup-Header" textAlign='center'>
-          <Icon name='signup' />
-          Sign Up
-        </Header>
-        <Form size='large' onSubmit={handleSubmit}>
-          <Segment>
-            <Form.Field
-              fluid 
-              placeholder='First Name'
-              control={Input}
-              name='firstName'
-              onChange={handleChange}
-            />
-            <Form.Input 
-              fluid 
-              icon='user' 
-              iconPosition='left' 
-              placeholder='E-mail address' 
-              name='email'
-              onChange={handleChange}
-            />
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              name='password'
-              onChange={handleChange}
-            />
-            <Button className="Signup-Button-Color" fluid size='large'>
-              Sign Up
-            </Button>
-          </Segment>
-        </Form>
-      </Grid.Column>
-    </Grid>
-    )
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* <h1>{formName}</h1> */}
+      {/* <label htmlFor='name'>Name:</label>
+      <input type="text" autoComplete='off' 
+        placeholder='Name'
+        name='name' 
+        // value={name} 
+        onChange={handleFieldChange}
+        /> */}
+      <label htmlFor='password'>Password:</label>
+      <input type='password' autoComplete='off' 
+        placeholder='Password'
+        name='password' 
+        // value={password} 
+        onChange={handleFieldChange}
+      />
+      <label htmlFor='email'>Email:</label>
+      <input type='email' autoComplete='off' 
+        placeholder='Email'
+        name='email' 
+        // value={email} 
+        onChange={handleFieldChange}
+      />
+      <input type='submit' value='Submit'/>
+    </form>
+  );
 }
 
 export default VolunteerSignup;
-
