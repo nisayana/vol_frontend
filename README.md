@@ -10,7 +10,7 @@ Frontend
 * Semantic UI React
 * Custom CSS3 styling
 
-Backend ~ API
+[Backend ~ API](https://github.com/nisayana/vol_backend)
 
 * Ruby [2.6.1]
 * Rails [~> 5.2.3] - MVC web framework used as an API
